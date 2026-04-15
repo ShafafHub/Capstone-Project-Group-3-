@@ -7,8 +7,7 @@ const Button = ({
   variant = "primary",
   fullWidth = false,
 }) => {
-  const baseStyle =
-    "px-4 py-2 rounded-xl font-medium transition duration-200";
+  const baseStyle = "px-4 py-2 rounded-xl font-medium transition duration-200";
 
   const variants = {
     primary: "bg-black text-white hover:bg-gray-800",
@@ -22,7 +21,7 @@ const Button = ({
       onClick={onClick}
       className={`${baseStyle} ${variants[variant]} ${
         fullWidth ? "w-full" : ""
-      }`}
+      }${disabled ? "opacity-50 cursor-not-allowed" : ""}`}
     >
       {children}
     </button>

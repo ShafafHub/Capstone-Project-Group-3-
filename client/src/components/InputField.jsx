@@ -18,6 +18,7 @@ const InputField = ({
       )}
 
       <input
+        {...props}
         type={type}
         name={name}
         value={value}
@@ -28,9 +29,7 @@ const InputField = ({
         focus:ring-2 focus:ring-black`}
       />
 
-      {error && (
-        <p className="mt-1 text-sm text-red-500">{error}</p>
-      )}
+      {error && <p className="mt-1 text-sm text-red-500">{error}</p>}
     </div>
   );
 };
