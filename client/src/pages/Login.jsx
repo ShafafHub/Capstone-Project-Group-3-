@@ -2,7 +2,11 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 function Login() {
-    const [form, setForm] = useState({ email: "", password: "" });
+    const [form, setForm] = useState({
+        email: "",
+        password: "",
+    });
+
     const navigate = useNavigate();
 
     const handleChange = (e) => {
@@ -14,7 +18,7 @@ function Login() {
 
         const user = JSON.parse(localStorage.getItem("user"));
 
-        // ✅ check user
+        // ✅ simple check
         if (
             user &&
             user.email === form.email &&
@@ -22,7 +26,7 @@ function Login() {
         ) {
             navigate("/dashboard");
         } else {
-            alert("Invalid credentials");
+            alert("Invalid email or password");
         }
     };
 
@@ -37,7 +41,7 @@ function Login() {
                         name="email"
                         placeholder="Email"
                         onChange={handleChange}
-                        className="w-full mb-4 px-3 py-2 border rounded-lg placeholder-gray-400 focus:ring-2 focus:ring-indigo-500"
+                        className="w-full mb-4 px-3 py-2 border rounded-lg placeholder-gray-400"
                     />
 
                     <input
@@ -45,7 +49,7 @@ function Login() {
                         name="password"
                         placeholder="Password"
                         onChange={handleChange}
-                        className="w-full mb-4 px-3 py-2 border rounded-lg placeholder-gray-400 focus:ring-2 focus:ring-indigo-500"
+                        className="w-full mb-4 px-3 py-2 border rounded-lg placeholder-gray-400"
                     />
 
                     <button className="w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700">

@@ -3,7 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 
 function Register() {
     const [form, setForm] = useState({
-        name: "",
         email: "",
         password: "",
     });
@@ -17,7 +16,7 @@ function Register() {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        // ✅ save user
+        // ✅ save user (email + password only)
         localStorage.setItem("user", JSON.stringify(form));
 
         alert("Account created!");
@@ -30,14 +29,6 @@ function Register() {
                 <h2 className="text-2xl font-bold text-center mb-6">Register</h2>
 
                 <form onSubmit={handleSubmit}>
-                    <input
-                        type="text"
-                        name="name"
-                        placeholder="Full Name"
-                        onChange={handleChange}
-                        className="w-full mb-4 px-3 py-2 border rounded-lg placeholder-gray-400"
-                    />
-
                     <input
                         type="email"
                         name="email"
