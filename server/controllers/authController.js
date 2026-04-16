@@ -1,15 +1,13 @@
 import bcrypt from "bcrypt";
-import{
+import {
     createUser,
     findUserByEmail,
 } from "../../database/queries/userQueries.js";
 
-// --- Register a new user ---
+// --- Register ---
 export const register = async (req, res) => {
     try {
         const { email, password } = req.body;
-
-        // --- Validate input ---
 
         if (!email || !password) {
             return res.status(400).json({
@@ -17,7 +15,20 @@ export const register = async (req, res) => {
             });
         }
 
-        // --- Check if user already exists ---
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (!emailRegex.test(email)) {
+            return res.status(400).json({
+                message: "Invalid email format",
+            });
+        }
+
+        if (password.length < 6) {
+            return res.status(400).json({
+                message: "Password must be at least 6 characters",
+            });
+        }
+
         const existingUser = await findUserByEmail(email);
 
         if (existingUser) {
@@ -26,42 +37,37 @@ export const register = async (req, res) => {
             });
         }
 
-        // --- Hash password ---
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        // --- Create user ---
-        const newUser = await createUser(email, hashedPassword);
+        const userId = await createUser(email, hashedPassword);
 
-        // --- Success response ---
         return res.status(201).json({
             message: "User registered successfully",
             user: {
-                id: newUser.id,
-                email: newUser.email,
+                id: userId,
+                email,
             },
         });
+
     } catch (error) {
         return res.status(500).json({
             message: "Server error",
             error: error.message,
         });
-    }  
+    }
 };
 
-// --- Login User ---
+// --- Login ---
 export const login = async (req, res) => {
-    try{
+    try {
         const { email, password } = req.body;
-
-        // --- Validate input ---
 
         if (!email || !password) {
             return res.status(400).json({
                 message: "Email and password are required",
             });
-        } 
+        }
 
-        // --- Find User ---
         const user = await findUserByEmail(email);
 
         if (!user) {
@@ -70,29 +76,29 @@ export const login = async (req, res) => {
             });
         }
 
-        // --- Compare password ---
-        if (!user || !user.password) {
-        return res.status(500).json({
-        message: "Login failed due to server issue",
-      });
-    }
+        if (!user.password) {
+            return res.status(500).json({
+                message: "Invalid user data",
+            });
+        }
+
         const isMatch = await bcrypt.compare(password, user.password);
 
         if (!isMatch) {
             return res.status(401).json({
-                message: "Invalid credentials"
+                message: "Invalid credentials",
             });
         }
 
-        // --- Success response ---
         return res.status(200).json({
             message: "Login successful",
             user: {
-               id: user.id,
-               email: user.email,
+                id: user.id,
+                email: user.email,
             },
         });
-    } catch(error) {
+
+    } catch (error) {
         return res.status(500).json({
             message: "Server error",
             error: error.message,
