@@ -8,6 +8,7 @@ const InputField = ({
   placeholder,
   error,
   name,
+  ...props
 }) => {
   return (
     <div className="w-full mb-4">
