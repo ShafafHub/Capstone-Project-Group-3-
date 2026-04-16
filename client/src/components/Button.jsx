@@ -6,6 +6,7 @@ const Button = ({
   type = "button",
   variant = "primary",
   fullWidth = false,
+  disabled = false,
 }) => {
   const baseStyle = "px-4 py-2 rounded-xl font-medium transition duration-200";
 
