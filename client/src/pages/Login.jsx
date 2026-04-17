@@ -18,7 +18,6 @@ function Login() {
 
         const user = JSON.parse(localStorage.getItem("user"));
 
-        // ✅ simple check
         if (
             user &&
             user.email === form.email &&
@@ -31,37 +30,43 @@ function Login() {
     };
 
     return (
-        <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-indigo-500 to-purple-600">
-            <div className="bg-white p-8 rounded-2xl shadow-xl w-80">
-                <h2 className="text-2xl font-bold text-center mb-6">Login</h2>
+        <div className="flex items-center justify-center min-h-screen bg-gray-100">
+            <div className="bg-white p-8 rounded-xl shadow-md w-96">
+                <h2 className="text-2xl font-semibold text-center mb-2">Sign In</h2>
+
+                <p className="text-center text-sm text-gray-500 mb-6">
+                    New to our product?{" "}
+                    <Link to="/register" className="text-blue-600">
+                        Create an account
+                    </Link>
+                </p>
 
                 <form onSubmit={handleSubmit}>
+                    <label className="text-sm text-gray-500">Email</label>
                     <input
                         type="email"
                         name="email"
-                        placeholder="Email"
+                        placeholder="Enter Email Address"
                         onChange={handleChange}
-                        className="w-full mb-4 px-3 py-2 border rounded-lg placeholder-gray-400"
+                        className="w-full mb-4 px-3 py-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500"
                     />
 
+                    <label className="text-sm text-gray-500">Password</label>
                     <input
                         type="password"
                         name="password"
-                        placeholder="Password"
+                        placeholder="Enter Password"
                         onChange={handleChange}
-                        className="w-full mb-4 px-3 py-2 border rounded-lg placeholder-gray-400"
+                        className="w-full mb-4 px-3 py-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500"
                     />
 
-                    <button className="w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700">
+                    <button className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700">
                         Login
                     </button>
                 </form>
 
-                <p className="text-center mt-4 text-sm">
-                    Don’t have an account?{" "}
-                    <Link to="/register" className="text-indigo-600">
-                        Register
-                    </Link>
+                <p className="text-center mt-4 text-sm text-blue-600 cursor-pointer">
+                    Forgot your password?
                 </p>
             </div>
         </div>

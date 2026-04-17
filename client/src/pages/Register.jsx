@@ -16,7 +16,6 @@ function Register() {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        // ✅ save user (email + password only)
         localStorage.setItem("user", JSON.stringify(form));
 
         alert("Account created!");
@@ -24,37 +23,46 @@ function Register() {
     };
 
     return (
-        <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-indigo-500 to-purple-600">
-            <div className="bg-white p-8 rounded-2xl shadow-xl w-80">
-                <h2 className="text-2xl font-bold text-center mb-6">Register</h2>
+        <div className="flex items-center justify-center min-h-screen bg-gray-100">
+            <div className="bg-white p-8 rounded-xl shadow-md w-96">
+                <h2 className="text-2xl font-semibold text-center mb-2">
+                    Create an Account
+                </h2>
+
+                <p className="text-center text-sm text-gray-500 mb-6">
+                    Have an account?{" "}
+                    <Link to="/login" className="text-blue-600">
+                        Sign In
+                    </Link>
+                </p>
 
                 <form onSubmit={handleSubmit}>
+                    <label className="text-sm text-gray-500">Email</label>
                     <input
                         type="email"
                         name="email"
-                        placeholder="Email"
+                        placeholder="Enter Email Address"
                         onChange={handleChange}
-                        className="w-full mb-4 px-3 py-2 border rounded-lg placeholder-gray-400"
+                        className="w-full mb-4 px-3 py-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500"
                     />
 
+                    <label className="text-sm text-gray-500">Password</label>
                     <input
                         type="password"
                         name="password"
-                        placeholder="Password"
+                        placeholder="Create Password"
                         onChange={handleChange}
-                        className="w-full mb-4 px-3 py-2 border rounded-lg placeholder-gray-400"
+                        className="w-full mb-4 px-3 py-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500"
                     />
 
-                    <button className="w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700">
-                        Register
+                    <button className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700">
+                        Create Account
                     </button>
                 </form>
 
-                <p className="text-center mt-4 text-sm">
-                    Already have an account?{" "}
-                    <Link to="/login" className="text-indigo-600">
-                        Login
-                    </Link>
+                <p className="text-center text-xs text-gray-500 mt-4">
+                    By creating account, you agree to our{" "}
+                    <span className="text-blue-600">Terms of Service</span>
                 </p>
             </div>
         </div>
