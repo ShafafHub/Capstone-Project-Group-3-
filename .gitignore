@@ -10,3 +10,5 @@ server/node_modules/.bin/node-gyp
 /server/node_modules/.bin
 /server/node_modules
 client/package-lock.json
+node_modules/
+package-lock.json

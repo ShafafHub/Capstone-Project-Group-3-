@@ -11,7 +11,7 @@ function Dashboard() {
         <div className="flex items-center justify-center min-h-screen bg-gray-100">
             <div className="bg-white p-8 rounded-xl shadow-lg text-center">
                 <h2 className="text-2xl font-bold mb-4">Dashboard</h2>
-                <p className="mb-4">Welcome 🎉</p>
+                <p className="mb-4">Welcome </p>
 
                 <button
                     onClick={logout}
