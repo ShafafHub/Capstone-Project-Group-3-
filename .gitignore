@@ -9,3 +9,10 @@ package-lock.json
 .env
 app.db
 db.sqlite
+server/package-lock.json
+client/eslint.config.js
+/server
+*.json
+server/package-lock.json
+*.json
+/server
