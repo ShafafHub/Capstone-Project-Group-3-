@@ -10,5 +10,12 @@ const db = new sqlite3.Database(dbPath, (err) => {
         console.log("Connected to SQLite database");
     }
 });
+// 
 
+db.run("PRAGMA foreign_keys = ON");
+db.run("PRAGMA journal_mode = WAL");
+// Gracefull shutwon
+process.on("exit", () => {
+    db.close();
+});
 module.exports = db;
