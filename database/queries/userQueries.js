@@ -1,5 +1,4 @@
 
-
 const db = require("../connection");
 
 // Create user
