@@ -12,3 +12,16 @@ server/node_modules/.bin/node-gyp
 client/package-lock.json
 node_modules/
 package-lock.json
+node_modules/
+.env
+dist/
+client/node_modules/
+server/node_modules/
+database/node_modules/
+node_modules/
+package-lock.json
+client\package-lock.json
+.env
+app.db
+db.sqlite
+/client
