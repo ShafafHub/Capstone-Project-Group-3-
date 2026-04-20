@@ -1,21 +1,24 @@
-import express from "express";
-import cors from "cors";
-import { PORT } from "./config/serverConfig.js";
-import authRoutes from "./routes/authRoutes.js";
-const app = express();
-// Middleware
-app.use(express.json());
-app.use(cors());
+import app from "./app.js";
+import { dbPromise } from "./src/config/db.js";
+import { initDb } from "./src/db/initDb.js";
 
-// Routes
-app.use("/api/auth", authRoutes);
+const PORT = process.env.PORT || 3000;
 
-// Health check
-app.get("/", (req, res) => {
-  res.send("API is running");
-});
+const start = async () => {
+  try {
+    const db = await dbPromise;
 
-// Server start
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}); }`);
-});
+    await initDb(db);
+
+    // --- Start server ---
+    app.listen(PORT, () => {
+      console.log(`Server running on http://localhost:${PORT}`);
+    });
+
+  } catch (err) {
+    console.error("Failed to start server:", err);
+    process.exit(1);
+  }
+};
+
+start();

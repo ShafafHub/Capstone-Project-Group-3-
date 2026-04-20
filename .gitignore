@@ -25,3 +25,6 @@ client\package-lock.json
 app.db
 db.sqlite
 /client
+client/package-lock.json
+/client
+client/package-lock.json

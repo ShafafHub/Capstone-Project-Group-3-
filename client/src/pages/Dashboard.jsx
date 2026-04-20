@@ -1,34 +1,25 @@
-import { useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext.jsx";
+import { useEffect, useState } from 'react';
+import { getOrders } from '../features/order/order.api';
 
-function Dashboard() {
-    const navigate = useNavigate();
-    const { logout, user } = useAuth();
+ 
+export default function Dashboard() {
+  const [orders, setOrders] = useState([]);
 
-    const handleLogout = () => {
-        logout();
-        navigate("/login");
-    };
+  // --- Fetching orders and setting state ---
+  useEffect(() => {
+    getOrders().then((res) => setOrders(res.data));
+  }, []);
 
-    return (
-        <div className="flex items-center justify-center min-h-screen bg-gray-100">
-            <div className="bg-white p-8 rounded-xl shadow-lg text-center">
+  return (
+    <div>
+      <h1>My Orders</h1>
 
-                <h2 className="text-2xl font-bold mb-4">Dashboard</h2>
-
-                <p className="mb-4">
-                    Welcome {user?.email || "User"}
-                </p>
-
-                <button
-                    onClick={handleLogout}
-                    className="bg-red-500 text-white px-4 py-2 rounded-lg"
-                >
-                    Logout
-                </button>
-            </div>
+      {orders.map((o) => (
+        <div key={o.id}>
+          <p>Order #{o.id}</p>
+          <p>Total: {o.total_price}</p>
         </div>
-    );
+      ))}
+    </div>
+  );
 }
-
-export default Dashboard;
