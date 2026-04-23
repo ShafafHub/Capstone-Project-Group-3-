@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Heart, ShoppingBag, X, User } from "lucide-react";
+import { Link } from "react-router-dom";
 import logo from "../../assets/logo.png";
 import Menu from "../../assets/Menu.png";
 
@@ -22,9 +23,9 @@ const Navbar = () => {
 
             {/* Desktop Links */}
             <div className="hidden md:flex gap-8 text-sm text-gray-500">
-              <a className="hover:text-black transition">Home</a>
-              <a className="hover:text-black transition">Collections</a>
-              <a className="hover:text-black transition">New</a>
+              <Link to="/home" className="hover:text-black transition">Home</Link>
+              <Link to="/collections" className="hover:text-black transition">Collections</Link>
+              <Link to="/new" className="hover:text-black transition">New</Link>
             </div>
           </div>
 
@@ -74,9 +75,9 @@ const Navbar = () => {
         </div>
 
         <div className="flex flex-col gap-8 p-6 text-2xl tracking-widest">
-          <a>Home</a>
-          <a>Collections</a>
-          <a>New</a>
+          <Link to="/home">Home</Link>
+          <Link to="/collections">Collections</Link>
+          <Link to="/new">New</Link>
 
           <div className="mt-10 flex flex-col gap-4 text-lg">
             <span>MEN</span>
