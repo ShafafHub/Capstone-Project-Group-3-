@@ -93,7 +93,7 @@ export default function Home() {
           </div>
 
           {/* --- search input --- */}
-          <div className="hidden lg:flex items-center bg-gray-200 w-[330px] px-4 py-3 mb-20 mt-5 text-sm text-gray-500">
+          <div className="hidden lg:flex items-center bg-gray-200 w-full sm:w-[330px] px-4 py-3 mb-20 mt-5 text-sm text-gray-500">
             <img src={searchIcon} className="w-5 h-5" />
            <input
               type="text"
@@ -105,7 +105,7 @@ export default function Home() {
           </div>
 
           {/* --- title --- */}
-          <h1 className="text-[56px] lg:text-[72px] font-extrabold leading-none">
+          <h1 className="text-[36px] sm:text-[48px] lg:text-[72px] font-extrabold leading-none">
             NEW <br /> COLLECTION
           </h1>
 
@@ -120,7 +120,7 @@ export default function Home() {
 
           <Link
             to="/collections"
-            className="inline-flex justify-between bg-gray-200 mr-14 px-4 py-2 w-[290px]"
+           className="inline-flex justify-between bg-gray-200 mr-14 px-4 py-2 w-full sm:w-[290px]"
           >
             <span>Go To Shop</span>
             <img src={nextIcon} className=" mt-1 mb-1  w-5 h-5" />
@@ -138,7 +138,7 @@ export default function Home() {
 
         </div>
 
-       <div className="grid grid-cols-2 gap-5 relative lg:top-20">
+        <div className="grid grid-cols-2 gap-3 sm:gap-5 relative lg:top-20">
 
         {search.trim() !== "" && filteredHeroProducts.length === 0 ? (
     
@@ -154,11 +154,11 @@ export default function Home() {
 
           <div className="group">
 
-            <div className="relative h-[320px] w-full top-40 overflow-hidden">
+            <div className="relative h-[220px] sm:h-[280px] lg:h-[320px] w-full mt-10 lg:top-40 overflow-hidden">
 
               <img
                 src={p.image}
-                className="w-[300] h-[310px] object-contain"
+                className="w-full h-[200px] sm:h-[260px] lg:h-[310px] object-contain"
               />
 
             </div>
@@ -191,7 +191,7 @@ export default function Home() {
           <p>Loading...</p>
         ) : (
           <>
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
 
               {newProducts
   .slice(currentIndex, currentIndex + itemsPerPage)
@@ -243,9 +243,9 @@ export default function Home() {
         </h2>
 
         {/* --- filters --- */}
-        <div className="flex justify-between mb-6">
+        <div className="flex flex-col sm:flex-row gap-4 sm:justify-between mb-6">
 
-          <div className="flex gap-4 text-sm">
+          <div className="flex flex-wrap gap-3 text-sm">
             {["all", "men", "women", "kids"].map(c => (
               <button
                 key={c}
@@ -257,7 +257,7 @@ export default function Home() {
             ))}
           </div>
 
-         <div className="relative w-[160px]">
+         <div className="relative w-full sm:w-[160px]">
   <select
     onChange={(e) => setSort(e.target.value)}
     className="w-full appearance-none bg-gray-100 border border-gray-200 px-4 py-2 pr-8 text-sm rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-black"
@@ -344,11 +344,11 @@ export default function Home() {
           quality exquisite finish
         </p>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 mt-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-10">
           <img src="/images/Rectangle 16.png" />
-          <img className='mt-16' src="/images/Rectangle 14.png" />
+          <img className='mt-6 sm:mt-16' src="/images/Rectangle 14.png" />
           <img src="/images/Rectangle 12.png" />
-          <img className='mt-16 ' src="/images/Rectangle 15 (1).png" />
+          <img className='mt-6 sm:mt-16' src="/images/Rectangle 15 (1).png" />
         </div>
 
       </section>
