@@ -1,4 +1,5 @@
-
+exports.up = function (knex) {
+    return knex.schema.createTable('users', (table) => {
 // 1. id
 table.increments("id").primary();
 
@@ -13,8 +14,8 @@ table.string("role").defaultTo("user");
 
 // 5. timestamps
 table.timestamps(true, true);
-
-
+})
+}
 
 exports.down = function (knex) {
     return knex.schema.dropTable("users");
