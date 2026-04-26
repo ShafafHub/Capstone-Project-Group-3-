@@ -27,3 +27,6 @@ db.sqlite
 client/package-lock.json
 client/package-lock.json
 client/package-lock.json
+node_modules
+dev.sqlite3
+*.sqlite3
