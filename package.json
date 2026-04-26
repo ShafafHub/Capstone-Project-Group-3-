@@ -5,7 +5,6 @@
     "tailwindcss": "^3.4.19"
   },
   "dependencies": {
-    "knex": "^3.2.9",
-    "sqlite3": "^6.0.1"
+    "knex": "^3.2.9"
   }
 }
