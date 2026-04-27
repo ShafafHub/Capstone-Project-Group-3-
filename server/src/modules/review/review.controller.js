@@ -1,8 +1,9 @@
+// --- import review service functions ---
 import * as service from './review.service.js';
-import { dbPromise } from '../../config/db.js';
 
+// --- controller: create new review ---
 export const create = async (req, res) => {
-  const db = await dbPromise;
+  const db = req.app.locals.db;
 
   await service.createReview(db, req.body);
 
