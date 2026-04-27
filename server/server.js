@@ -1,5 +1,5 @@
 import app from "./app.js";
-import db from "./src/config/knex.js";
+import {db} from "./src/config/knex.js";
 
 const PORT = process.env.PORT || 3000;
 
