@@ -1,8 +1,9 @@
+// --- import user service functions ---
 import * as service from './user.service.js';
-import { dbPromise } from '../../config/db.js';
 
+// --- controller: get current user profile ---
 export const profile = async (req, res) => {
-  const db = await dbPromise;
+  const db = req.app.locals.db;
 
   const user = await service.getProfile(db, req.user.id);
 
