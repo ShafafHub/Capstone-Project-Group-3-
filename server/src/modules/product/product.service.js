@@ -1,9 +1,16 @@
-import * as model from './product.model.js';
+// server/src/modules/product/product.service.js
 
-export const getProducts = (db) => model.getAllProducts(db);
+import db from "../../config/db.js";
+import * as model from "./product.model.js";
 
-export const getSingleProduct = (db, id) =>
-  model.getProductById(db, id);
+export const getProducts = () => {
+  return model.getAllProducts(db);
+};
 
-export const addProduct = (db, data) =>
-  model.createProduct(db, data);
+export const getSingleProduct = (id) => {
+  return model.getProductById(db, id);
+};
+
+export const addProduct = (data) => {
+  return model.createProduct(db, data);
+};
