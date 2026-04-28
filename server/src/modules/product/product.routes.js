@@ -1,14 +1,13 @@
-import { authMiddleware } from '../../middlewares/auth.middleware.js'
-import { adminMiddleware } from '../../middlewares/admin.middleware.js'
+import express from 'express'
+import { getAll, getOne, create, remove, update } from './product.controller.js'
 
-import express from 'express';
-import { getAll, getOne, create } from './product.controller.js';
 
-// --- create router ---
-const router = express.Router();
+const router = express.Router()
 
-router.get('/', getAll);
-router.get('/:id', getOne);
-router.post('/', authMiddleware, adminMiddleware, create);
+router.get('/', getAll)
+router.get('/:id', getOne)
+router.post('/', create)
+router.delete('/:id', remove)
+router.put('/:id', update)
 
-export default router;
+export default router
