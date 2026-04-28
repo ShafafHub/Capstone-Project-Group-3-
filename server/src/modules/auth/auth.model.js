@@ -1,3 +1,3 @@
-// --- Find user by email ---
+// --- find single user by email ---
 export const findUserByEmail = (db, email) =>
-     db.get('SELECT * FROM users WHERE email = ?', [email])
+  db('users').where({ email }).first();
