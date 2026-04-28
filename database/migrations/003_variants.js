@@ -1,5 +1,5 @@
 exports.up = function (knex) {
-    return knex.schema.createTable('variants', function (table) {
+    return knex.schema.createTable('variants', (table) => {
         // id (primary key, auto-increment)
         table.increments('id').primary();
 
