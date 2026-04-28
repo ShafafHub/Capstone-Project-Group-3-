@@ -1,26 +1,31 @@
-export const createOrder = async (db, userId, items, total) => {
-  const result = await db.run(
-    `INSERT INTO orders (user_id, total_price, status)
-     VALUES (?, ?, ?)`,
-    [userId, total, 'pending']
-  );
-
-  const orderId = result.lastID;
-
-  for (let item of items) {
-    await db.run(
-      `INSERT INTO order_items (order_id, product_id, quantity)
-       VALUES (?, ?, ?)`,
-      [orderId, item.product_id, item.quantity]
-    );
+// --- create new order with items ---
+export const createOrder = async (db, userId, items = [], total = 0) => {
+  if (!Array.isArray(items)) {
+    throw new Error("items must be an array");
   }
 
-  return orderId;
+  const [orderId] = await db('orders')
+    .insert({
+      user_id: userId,
+      total_price: total,
+      status: 'pending',
+    })
+    .returning('id');
+
+  const orderItems = items.map((item) => ({
+    order_id: orderId.id || orderId,
+    product_id: item.product_id,
+    quantity: item.quantity,
+  }));
+
+  await db('order_items').insert(orderItems);
+
+  return orderId.id || orderId;
 };
 
+// --- get all orders (sorted by newest first) ---
 export const getOrders = (db, userId) => {
-  return db.all(
-    `SELECT * FROM orders WHERE user_id = ?`,
-    [userId]
-  );
+  return db('orders')
+    .where({ user_id: userId })
+    .orderBy('id', 'desc');
 };
