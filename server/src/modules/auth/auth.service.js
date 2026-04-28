@@ -1,60 +1,47 @@
-import { hashPassword } from '../../utils/hash.js';
-import { dbPromise } from '../../config/db.js';
+import { hashPassword, comparePassword } from "../../utils/hash.js";
 
-// --- Register user ---
-export const registerUser = async (email, password) => {
-  const db = await dbPromise;
-
+export const registerUser = async (db, email, password) => {
   email = email.toLowerCase().trim();
 
-  // --- check duplicate email ---
-  const existingUser = await db.get(
-    'SELECT id FROM users WHERE email = ?',
-    [email]
-  );
+  const existingUser = await db("users").where({ email }).first();
 
   if (existingUser) {
-    const error = new Error('This email is already registered');
-    error.status = 409
-    throw error
+    throw new Error("User already exists");
   }
 
-  const hashed = await hashPassword(password);
+  const hashedPassword = await hashPassword(password);
 
-  const result = await db.run(
-    'INSERT INTO users (email, password) VALUES (?, ?)',
-    [email, hashed]
-  );
-
-  return {
-    id: result.lastID,
+  await db("users").insert({
     email,
-  };
+    password: hashedPassword,
+    role: "user",
+  });
+
+  const newUser = await db("users")
+    .select("id", "email", "role")
+    .where({ email })
+    .first();
+
+  return newUser;
 };
 
-// --- Login user ---
-export const loginUser = async (email, password) => {
-  const db = await dbPromise;
-
-  const user = await db.get(
-    'SELECT * FROM users WHERE email = ?',
-    [email]
-  );
+export const loginUser = async (db, email, password) => {
+  const user = await db("users").where({ email }).first();
 
   if (!user) {
-    const error = new Error('User not found');
-    error.status = 404
-    throw error
+    throw new Error("User not found");
   }
 
-  const { comparePassword } = await import('../../utils/hash.js');
-  const valid = await comparePassword(password, user.password);
+  const isValidPassword = await comparePassword(
+    password,
+    user.password
+  );
 
-  if (!valid) {
-    const error = new Error('Invalid password');
-    error.status = 401
-    throw error
+  if (!isValidPassword) {
+    throw new Error("Wrong password");
   }
+
+  delete user.password;
 
   return user;
 };
