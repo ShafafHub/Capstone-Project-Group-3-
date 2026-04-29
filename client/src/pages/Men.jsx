@@ -1,40 +1,39 @@
-import { useEffect, useState } from "react";
-import { fetchProducts } from "../features/product/product.api";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react"
+import { fetchProducts } from "../features/product/product.api"
+import { Link } from "react-router-dom"
 
 export default function Men() {
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState([])
 
   useEffect(() => {
-    fetchProducts().then((res) => {
-      const filtered = res.data.filter(
-        (p) => p.category === "men"
-      );
-      setProducts(filtered);
-    });
-  }, []);
+    fetchProducts().then(res => {
+      const menProducts = res.data.filter(p => p.category === "men")
+      setProducts(menProducts)
+    })
+  }, [])
 
   return (
     <div className="p-10">
+
       <h1 className="text-2xl mb-6">MEN COLLECTION</h1>
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
-        {products.map((p) => (
-          <Link to={`/product/${p.id}`} key={p.id}>
+
+        {products.map(p => (
+          <Link to={`/products/${p.id}`} key={p.id}>
+
             <div>
-              <img
-                src={p.image}
-                className="w-full h-[300px] object-contain bg-gray-100"
-              />
+              <img src={p.image} className="w-full h-[300px] object-contain bg-gray-100" />
               <h3>{p.name}</h3>
               <p className="font-semibold">{p.description}</p>
-              <p className="text-sm text-gray-500">
-                ${p.price}
-              </p>
+              <p className="text-sm text-gray-500">${p.price}</p>
             </div>
+
           </Link>
         ))}
+
       </div>
+
     </div>
-  );
+  )
 }
