@@ -1,19 +1,19 @@
-export const getAllProducts = async (db) => {
-  return db.all('SELECT * FROM products');
+
+export const getAllProducts = (db) => {
+  return db('products')
+    .select('*')
+    .orderBy('id', 'desc');
 };
 
-export const getProductById = async (db, id) => {
-  return db.get('SELECT * FROM products WHERE id = ?', [id]);
+
+export const getProductById = (db, id) => {
+  return db('products')
+    .where({ id })
+    .first();
 };
 
-export const createProduct = async (db, product) => {
-  const { name, price, description, image } = product;
 
-  const result = await db.run(
-    `INSERT INTO products (name, price, description, image)
-     VALUES (?, ?, ?, ?)`,
-    [name, price, description, image]
-  );
-
-  return { id: result.lastID, ...product };
+export const createProduct = (db, product) => {
+  return db('products')
+    .insert(product);
 };
