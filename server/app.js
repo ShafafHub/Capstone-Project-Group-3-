@@ -16,8 +16,6 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
-// --- Avoid noisy 404s in browser console for favicon.ico ---
 app.get('/favicon.ico', (req, res) => res.status(204).end());
 
 // --- API routes ---

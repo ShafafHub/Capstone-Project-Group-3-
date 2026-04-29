@@ -1,32 +1,59 @@
-import * as service from './cart.service.js';
-import { dbPromise } from '../../config/db.js';
+import * as service from './cart.model.js';
 
-// --- Get Cart Data ---
+// --- Get cart items for authenticated user ---
 export const getCart = async (req, res) => {
-  const db = await dbPromise;
-  const data = await service.getCart(db, req.user.id);
-  res.json(data);
-}
+  try {
+    const db = req.app.locals.db;
+    const userId = req.user?.id;
 
-// --- Add Item to Cart ---
+    if (!userId) {
+      return res.status(401).json({ message: 'Unauthorized' });
+    }
+
+    const data = await service.getCartItems(db, userId);
+    res.json(data);
+  } catch (err) {
+    console.error('getCart failed:', err);
+    res.status(500).json({ message: err?.message || 'Internal Server Error' });
+  }
+};
+
+// --- Add item to cart ---
 export const add = async (req, res) => {
-  const db = await dbPromise;
+  try {
+    const db = req.app.locals.db;
+    const userId = req.user?.id;
 
-  const { productId, quantity } = req.body;
+    if (!userId) {
+      return res.status(401).json({ message: 'Unauthorized' });
+    }
 
-  await service.addItem(
-    db,
-    req.user.id,
-    productId,
-    quantity
-  )
+    const { product_id, quantity = 1, color, size } = req.body;
 
-  res.json({ message: 'added' })
-}
+    await service.addToCart(db, userId, product_id, quantity, color, size);
 
-// --- Remove Item from Cart ---
+    res.json({ message: 'added' });
+  } catch (err) {
+    console.error('addToCart failed:', err);
+    res.status(500).json({ message: err?.message || 'Internal Server Error' });
+  }
+};
+
+// --- Remove item from cart ---
 export const remove = async (req, res) => {
-  const db = await dbPromise;
-  await service.removeItem(db, req.params.id);
-  res.json({ message: 'removed' });
-}
+  try {
+    const db = req.app.locals.db;
+    const userId = req.user?.id;
+
+    if (!userId) {
+      return res.status(401).json({ message: 'Unauthorized' });
+    }
+
+    await service.removeFromCart(db, req.params.id);
+
+    res.json({ message: 'removed' });
+  } catch (err) {
+    console.error('removeFromCart failed:', err);
+    res.status(500).json({ message: err?.message || 'Internal Server Error' });
+  }
+};

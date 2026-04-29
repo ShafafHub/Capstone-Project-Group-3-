@@ -1,13 +1,13 @@
-import express from 'express'
-import { getAll, getOne, create, remove, update } from './product.controller.js'
+import express from 'express';
+import { getAll, getOne, create, remove, update } from './product.controller.js';
 
+const router = express.Router();
 
-const router = express.Router()
+// --- Product routes ---
+router.get('/', getAll);        // Get all products
+router.get('/:id', getOne);     // Get single product by ID
+router.post('/', create);       // Create new product
+router.delete('/:id', remove);  // Delete product by ID
+router.put('/:id', update);     // Update product by ID
 
-router.get('/', getAll)
-router.get('/:id', getOne)
-router.post('/', create)
-router.delete('/:id', remove)
-router.put('/:id', update)
-
-export default router
+export default router;
