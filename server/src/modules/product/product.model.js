@@ -1,19 +1,11 @@
+// --- Get all products ordered by ID descending ---
+export const getAllProducts = (db) =>
+  db('products').orderBy('id', 'desc');
 
-export const getAllProducts = (db) => {
-  return db('products')
-    .select('*')
-    .orderBy('id', 'desc');
-};
+// --- Get single product by ID ---
+export const getProductById = (db, id) =>
+  db('products').where({ id }).first();
 
-
-export const getProductById = (db, id) => {
-  return db('products')
-    .where({ id })
-    .first();
-};
-
-
-export const createProduct = (db, product) => {
-  return db('products')
-    .insert(product);
-};
+// --- Create new product ---
+export const createProduct = (db, product) =>
+  db('products').insert(product);
