@@ -1,7 +1,6 @@
 import { api } from '../../services/api';
 
-// --- Fetch all products ---
+export const deleteProduct = (id) => api.delete(`/products/${id}`);
+export const createProduct = (data) => api.post('/products', data);
 export const fetchProducts = () => api.get('/products');
-
-// --- Fetch a single product by ID ---
 export const fetchProduct = (id) => api.get(`/products/${id}`);
