@@ -2,14 +2,16 @@ import jwt from 'jsonwebtoken';
 
 const SECRET = 'secret123';
 
-// --- Generate token ---
+// --- Generate JWT token for user ---
 export const generateToken = (user) => {
-  return jwt.sign({ id: user.id }, SECRET, {
-    expiresIn: '7d',
-  });
+  return jwt.sign(
+    { id: user.id, role: user.role },
+    SECRET,
+    { expiresIn: '7d' }
+  );
 };
 
-// --- Verify token ---
+// --- Verify JWT token ---
 export const verifyToken = (token) => {
   return jwt.verify(token, SECRET);
 };
