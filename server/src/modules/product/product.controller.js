@@ -1,67 +1,109 @@
-import * as service from "./product.service.js";
+import * as service from './product.service.js';
 
+// --- Get all products ---
 export const getAll = async (req, res) => {
   try {
     const db = req.app.locals.db;
 
     if (!db) {
-      return res.status(500).json({ message: "Database not initialized" });
+      return res.status(500).json({ message: 'Database not initialized' });
     }
 
     const { sort } = req.query;
 
-    let products = await service.getProducts(db);
+    let data = await service.getProducts(db);
 
-    if (sort === "new") {
-      products = products.filter(
-        (product) =>
-          product.is_new === 1 || product.is_new === true
-      );
+    // --- Filter for new products if sort param is 'new' ---
+    if (sort === 'new') {
+      data = data.filter(p => p.is_new === 1 || p.is_new === true);
     }
 
-    return res.json(products);
+    res.json(data);
   } catch (err) {
-    console.error(err);
-    return res.status(500).json({ message: "Failed to fetch products" });
+    console.error('getAll error:', err);
+    res.status(500).json({ message: 'Failed to fetch products' });
   }
 };
 
+// --- Get single product by ID ---
 export const getOne = async (req, res) => {
   try {
     const db = req.app.locals.db;
 
     if (!db) {
-      return res.status(500).json({ message: "Database not initialized" });
+      return res.status(500).json({ message: 'Database not initialized' });
     }
 
-    const { id } = req.params;
+    const data = await service.getSingleProduct(db, req.params.id);
 
-    const product = await service.getSingleProduct(db, id);
-
-    if (!product) {
-      return res.status(404).json({ message: "Product not found" });
+    if (!data) {
+      return res.status(404).json({ message: 'Product not found' });
     }
 
-    return res.json(product);
+    res.json(data);
   } catch (err) {
-    console.error(err);
-    return res.status(500).json({ message: "Failed to fetch product" });
+    console.error('getOne error:', err);
+    res.status(500).json({ message: 'Failed to fetch product' });
   }
 };
 
+// --- Create new product ---
 export const create = async (req, res) => {
   try {
     const db = req.app.locals.db;
 
     if (!db) {
-      return res.status(500).json({ message: "Database not initialized" });
+      return res.status(500).json({ message: 'Database not initialized' });
     }
 
-    const createdProduct = await service.addProduct(db, req.body);
+    const product = await service.addProduct(db, req.body);
 
-    return res.status(201).json(createdProduct);
+    res.status(201).json(product);
+  } catch (err) {
+    console.error('create error:', err);
+    res.status(500).json({ message: 'Failed to create product' });
+  }
+};
+
+// --- Delete product by ID ---
+export const remove = async (req, res) => {
+  try {
+    const db = req.app.locals.db;
+
+    const deleted = await db('products')
+      .where({ id: req.params.id })
+      .del();
+
+    if (!deleted) {
+      return res.status(404).json({ message: 'Product not found' });
+    }
+
+    res.json({ message: 'deleted' });
   } catch (err) {
     console.error(err);
-    return res.status(500).json({ message: "Failed to create product" });
+    res.status(500).json({ message: 'delete failed' });
+  }
+};
+
+// --- Update product by ID ---
+export const update = async (req, res) => {
+  try {
+    const db = req.app.locals.db;
+    const { id } = req.params;
+    
+    const updatedRows = await db('products')
+      .where({ id })
+      .update(req.body);
+
+    if (!updatedRows) {
+      return res.status(404).json({ message: 'Product not found' });
+    }
+
+    const updated = await db('products').where({ id }).first();
+
+    res.json(updated);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Update failed' });
   }
 };
