@@ -1,13 +1,16 @@
 exports.seed = async function (knex) {
-  const exists = await knex('products').first()
+  // --- Check if products already exist ---
+  const exists = await knex('products').first();
 
-  if (exists) return
+  // --- Skip seeding if products already exist ---
+  if (exists) return;
 
+  // --- Insert product data ---
   await knex('products').insert([
     {
       name: 'V-Neck T-Shirt',
-      description: 'Embroidered Seersucker Shirt',
-      price: 99,
+      description: 'Soft V-neck tee, clean everyday fit.',
+      price: 24,
       image: '/images/Rectangle 18.png',
       category: 'men',
       is_new: false,
@@ -17,10 +20,10 @@ exports.seed = async function (knex) {
       tags: 't-shirt, best-sellers',
       rating: 3,
     },
-      {
+    {
       name: 'Cotton T-Shirt',
-      description: 'Basic Slim Fit T-shirt',
-      price: 99,
+      description: 'Slim cotton tee with durable stitching.',
+      price: 19,
       image: '/images/Rectangle 15 (2).png',
       category: 'men',
       is_new: false,
@@ -32,8 +35,8 @@ exports.seed = async function (knex) {
     },
     {
       name: 'Cotton T-Shirt',
-      description: 'Basic Slim T-shirt',
-      price: 199,
+      description: 'Premium heavyweight tee that holds shape.',
+      price: 29,
       image: '/images/Rectangle 17.png',
       category: 'men',
       is_new: false,
@@ -45,8 +48,8 @@ exports.seed = async function (knex) {
     },
     {
       name: 'Henley T-Shirt',
-      description: 'Blurred print T-Shirt',
-      price: 120,
+      description: 'Classic Henley, breathable fabric, easy layering.',
+      price: 32,
       image: '/images/Rectangle 19.png',
       category: 'men',
       is_new: false,
@@ -58,8 +61,8 @@ exports.seed = async function (knex) {
     },
     {
       name: 'Crewneck T-Shirt ',
-      description: 'Full Sleeve Zipper',
-      price: 250,
+      description: 'Long-sleeve crewneck tee for cooler days.',
+      price: 38,
       image: '/images/Rectangle 20.png',
       category: 'men',
       is_new: false,
@@ -71,8 +74,8 @@ exports.seed = async function (knex) {
     },
     {
       name: 'Cotton Jeans',
-      description: 'Soft Wash Straight Fit Jeans',
-      price: 300,
+      description: 'Soft-wash straight jeans with all-day comfort.',
+      price: 54,
       image: '/images/Rectangle 12.png',
       category: 'men',
       is_new: false,
@@ -84,8 +87,8 @@ exports.seed = async function (knex) {
     },
     {
       name: 'Black Suite',
-      description: 'Basic Heavy Weight T-Shirt blue',
-      price: 350,
+      description: 'Modern black suit for formal occasions.',
+      price: 189,
       image: '/images/pngegg (7).png',
       category: 'men',
       is_new: true,
@@ -97,8 +100,8 @@ exports.seed = async function (knex) {
     },
     {
       name: 'Cotton Suite',
-      description: 'Basic Heavy Weight T-Shirt blue',
-      price: 350,
+      description: 'Light cotton-blend suit, comfortable all day.',
+      price: 159,
       image: '/images/pngegg (8).png',
       category: 'men',
       is_new: true,
@@ -108,10 +111,10 @@ exports.seed = async function (knex) {
       tags: 'suit, new, best-seller, coat',
       rating: 5,
     },
-     {
+    {
       name: 'Red Shirt',
-      description: 'Basic Heavy Weight T-Shirt blue',
-      price: 350,
+      description: 'Bold red shirt with crisp collar.',
+      price: 42,
       image: '/images/pngegg (9).png',
       category: 'men',
       is_new: false,
@@ -121,10 +124,10 @@ exports.seed = async function (knex) {
       tags: 'shirt',
       rating: 1,
     },
-     {
+    {
       name: 'Cotton Shirt',
-      description: 'Basic Heavy Weight T-Shirt blue',
-      price: 350,
+      description: 'Breathable cotton shirt, relaxed regular fit.',
+      price: 39,
       image: '/images/pngegg (10).png',
       category: 'men',
       is_new: false,
@@ -134,10 +137,10 @@ exports.seed = async function (knex) {
       tags: 'shirt, best-seller, polo-shirt',
       rating: 3,
     },
-     {
+    {
       name: 'blue Shirt',
-      description: 'Basic Heavy Weight T-Shirt blue',
-      price: 350,
+      description: 'Fresh blue shirt with soft finish.',
+      price: 41,
       image: '/images/pngegg (11).png',
       category: 'men',
       is_new: true,
@@ -147,10 +150,10 @@ exports.seed = async function (knex) {
       tags: 'new, shirt',
       rating: 3,
     },
-     {
+    {
       name: 'Sari Dark-Blue',
-      description: 'Basic Heavy Weight T-Shirt blue',
-      price: 350,
+      description: 'Elegant dark-blue sari with smooth drape.',
+      price: 129,
       image: '/images/pngegg (12).png',
       category: 'women',
       is_new: false,
@@ -160,10 +163,10 @@ exports.seed = async function (knex) {
       tags: 'best-seller',
       rating: 3,
     },
-     {
+    {
       name: 'Gold Dress',
-      description: 'Basic Heavy Weight T-Shirt blue',
-      price: 350,
+      description: 'Glam gold dress for special nights.',
+      price: 149,
       image: '/images/pngegg (13).png',
       category: 'women',
       is_new: true,
@@ -173,10 +176,10 @@ exports.seed = async function (knex) {
       tags: 'new, best-seller',
       rating: 5,
     },
-     {
+    {
       name: 'Red Sari',
-      description: 'Basic Heavy Weight T-Shirt blue',
-      price: 350,
+      description: 'Vibrant red sari, lightweight and graceful.',
+      price: 119,
       image: '/images/pngegg (14).png',
       category: 'women',
       is_new: false,
@@ -186,10 +189,10 @@ exports.seed = async function (knex) {
       tags: 'new, best-seller',
       rating: 4,
     },
-     {
+    {
       name: 'White Kid Shirt',
-      description: 'Basic Heavy Weight T-Shirt blue',
-      price: 350,
+      description: 'Soft kids shirt for everyday play.',
+      price: 18,
       image: '/images/pngegg (1).png',
       category: 'kids',
       is_new: true,
@@ -199,10 +202,10 @@ exports.seed = async function (knex) {
       tags: 'new, shirt, best-seller',
       rating: 5,
     },
-     {
+    {
       name: 'Cotton Blue',
-      description: 'Basic Heavy Weight T-Shirt blue',
-      price: 350,
+      description: 'Cozy blue cotton top, easy care.',
+      price: 16,
       image: '/images/pngegg (2).png',
       category: 'kids',
       is_new: false,
@@ -212,10 +215,10 @@ exports.seed = async function (knex) {
       tags: 'best-seller',
       rating: 4,
     },
-     {
+    {
       name: 'Chines Full Dress',
-      description: 'Basic Heavy Weight T-Shirt blue',
-      price: 350,
+      description: 'Festive kids dress with comfy fit.',
+      price: 34,
       image: '/images/pngegg (3).png',
       category: 'kids',
       is_new: true,
@@ -225,10 +228,10 @@ exports.seed = async function (knex) {
       tags: 'new, jacket',
       rating: 4,
     },
-     {
+    {
       name: 'Old Style Dress',
-      description: 'Basic Heavy Weight T-Shirt blue',
-      price: 350,
+      description: 'Classic kids outfit with vintage charm.',
+      price: 28,
       image: '/images/pngegg (4).png',
       category: 'kids',
       is_new: false,
@@ -238,10 +241,10 @@ exports.seed = async function (knex) {
       tags: 'jacket',
       rating: 1,
     },
-     {
+    {
       name: 'Zombie Style',
-      description: 'Basic Heavy Weight T-Shirt blue',
-      price: 350,
+      description: 'Fun spooky set for kids parties.',
+      price: 22,
       image: '/images/pngegg (5).png',
       category: 'kids',
       is_new: false,
@@ -251,10 +254,10 @@ exports.seed = async function (knex) {
       tags: 'short',
       rating: 0,
     },
-     {
+    {
       name: 'Tiger Style',
-      description: 'Basic Heavy Weight T-Shirt blue',
-      price: 350,
+      description: 'Cute tiger outfit, warm and comfy.',
+      price: 26,
       image: '/images/pngegg (6).png',
       category: 'kids',
       is_new: false,
@@ -264,5 +267,5 @@ exports.seed = async function (knex) {
       tags: 'jacket, best-seller',
       rating: 4,
     },
-  ])
-}
+  ]);
+};
