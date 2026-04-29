@@ -175,10 +175,10 @@ export default function Navbar() {
           <Link to="/new" onClick={() => setOpen(false)}>
             New
           </Link>
-          <div className="border-t pt-6 mt-6 text-gray-500 text-sm leading-7">
-            MEN <br />
-            WOMEN <br />
-            KIDS
+          <div className="flex flex-col border-t pt-6 mt-6 text-gray-700 text-sm leading-10">
+           <Link to="/men" onClick={() => setOpen(false)}>MEN</Link>
+            <Link to="/women" onClick={() => setOpen(false)}>WOMEN</Link>
+            <Link to="/kids" onClick={() => setOpen(false)}>KIDS</Link>
           </div>
         </div>
       </div>
